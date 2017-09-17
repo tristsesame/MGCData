@@ -16,11 +16,13 @@ public:
 	CDataManager(string strHost, int port);
 	~CDataManager(void);
 
-	bool login(mgcHttpLogin &loginItem, mgcHttpLoginResult &result);
+	bool login(mgcHttpLogin &loginItem);
+	bool getLoginData(mgcHttpLoginResult &result) {result = m_dataLoginResult;};
 	virtual void	thread_main();
 
 private:
 	void processData();
+	void processData_login();
 
 	char * m_bufferResult;
 	int m_bufferResultLen;

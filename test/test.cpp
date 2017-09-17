@@ -16,7 +16,7 @@ int main()
 	loginItem.name = "admin";
 	loginItem.password = "super";
 
-	data.login(loginItem,loginResult);
+	data.login(loginItem);
 	
 	while( true )
 	{
