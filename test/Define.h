@@ -8,7 +8,7 @@ namespace MGCDataDefine
 	enum enum_http_request
 	{
 		enum_http_login = 0,
-		enum_http_phone_number,
+		enum_http_phone,
 	};
 
 	//base
@@ -39,6 +39,15 @@ namespace MGCDataDefine
 		string token;
 	};
 
-	//other item
+	//service phone number
+	//input parameter none
+	struct mgcHttpPhoneResult:mgcRequestResult
+	{
+		mgcHttpPhoneResult()
+		{
+			phone = "";
+		}
+		string phone;
+	};
 
 }

@@ -5,7 +5,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Define.h"
 
 using namespace std;
 
