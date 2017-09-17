@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MGCData", "MGCData\MGCData.vcxproj", "{2F31C947-ADE2-42E9-90FF-50A2300BF0F8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{965AD4B3-24DA-4AED-8B90-0D5927BE50BE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F31C947-ADE2-42E9-90FF-50A2300BF0F8} = {2F31C947-ADE2-42E9-90FF-50A2300BF0F8}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2F31C947-ADE2-42E9-90FF-50A2300BF0F8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2F31C947-ADE2-42E9-90FF-50A2300BF0F8}.Debug|Win32.Build.0 = Debug|Win32
+		{2F31C947-ADE2-42E9-90FF-50A2300BF0F8}.Release|Win32.ActiveCfg = Release|Win32
+		{2F31C947-ADE2-42E9-90FF-50A2300BF0F8}.Release|Win32.Build.0 = Release|Win32
+		{965AD4B3-24DA-4AED-8B90-0D5927BE50BE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{965AD4B3-24DA-4AED-8B90-0D5927BE50BE}.Debug|Win32.Build.0 = Debug|Win32
+		{965AD4B3-24DA-4AED-8B90-0D5927BE50BE}.Release|Win32.ActiveCfg = Release|Win32
+		{965AD4B3-24DA-4AED-8B90-0D5927BE50BE}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
