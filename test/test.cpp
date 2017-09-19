@@ -9,7 +9,8 @@ using namespace std;
 
 int main()
 {
-	CDataManager data("47.92.114.240",8080);
+	//CDataManager data("47.92.114.240",8080);
+	CDataManager data("47.92.94.22",8080);
 	mgcHttpLogin loginItem;
 	mgcHttpLoginResult loginResult;
 
@@ -19,7 +20,11 @@ int main()
 	data.requestLogin(loginItem);
 
 	data.requestPhone();
-	
+
+	data.requestAllGameFamily();
+
+	data.requestAllGame();
+
 	while( true )
 	{
 		cout << "I'm tired, sleep for a while ... " << endl;

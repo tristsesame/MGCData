@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <map>
 
 using namespace std;
 namespace MGCDataDefine
@@ -9,6 +11,10 @@ namespace MGCDataDefine
 	{
 		enum_http_login = 0,
 		enum_http_phone,
+		enum_http_qrcode,
+		enum_http_down_file,
+		enum_http_game_family,
+		enum_http_game,
 	};
 
 	//base
@@ -34,9 +40,13 @@ namespace MGCDataDefine
 	{
 		mgcHttpLoginResult()
 		{
-			token = "";
+			operationId = "";
+			operationName = "";
+			operationCode = "";
 		}
-		string token;
+		string operationId;
+		string operationName;
+		string operationCode;
 	};
 
 	//service phone number
@@ -50,4 +60,76 @@ namespace MGCDataDefine
 		string phone;
 	};
 
+
+	//qr code
+	struct mgcHttpQRCode
+	{
+		string clientId;
+		string filePath;
+	};
+
+	struct mgcHttpQRCodeResult:mgcRequestResult
+	{
+	};
+
+	//down file
+	struct mgcHttpDownFile
+	{
+		string fileUrl;
+		string filePath;
+	};
+	struct mgcHttpDownFileResult:mgcRequestResult
+	{
+	};
+
+	//游戏类别
+	struct mgcHttpGameFamily
+	{
+		string familyName;
+		string familyNum;
+		int pageNum;
+	};
+	struct mgcGameFamilyInfo
+	{
+		string familyId;
+		string familyNum;
+		string familyName;
+		string familyIcon;
+	};
+
+	struct mgcHttpGameFamilyResult:mgcRequestResult
+	{
+		int pageSize;
+		int totalResult;
+		vector<mgcGameFamilyInfo> vecFamilyInfo;
+		map<string,bool> mapFamilyId;  //判断是否已添加
+	};
+
+	//游戏信息
+	struct mgcHttpGame
+	{
+		string gameName;
+		string gameFamily;
+		string operationMode;
+		int pageNum;
+	};
+
+	struct mgcGameInfo
+	{
+		string gameId;
+		string gameName;
+		string gamePath;
+		string gameFamily;
+		string operationMode;
+		string gameCover;
+		string gameVideo;
+	};
+
+	struct mgcHttpGameResult:mgcRequestResult
+	{
+		int pageSize;
+		int totalResult;
+		vector<mgcGameInfo> vecGameInfo;
+		map<string,bool> mapGameId;  //判断是否已添加
+	};
 }

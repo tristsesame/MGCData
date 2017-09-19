@@ -80,9 +80,10 @@ size_t WriteMemoryCallback(char* ptr, size_t size, size_t nmemb)
 };
 
 
-size_t FileCallback(FILE *f, char* ptr, size_t size, size_t nmemb)
+size_t FileCallback(char* ptr, size_t size, size_t nmemb,void *f)
 {
-	return fwrite(ptr, size, nmemb, f);
+	FILE *file = (FILE *)f;
+	return fwrite(ptr, size, nmemb, file);
 };
 
 
@@ -186,7 +187,7 @@ bool core_login(const char *user_name, const char* password, char * result, int&
 {
 	char s[1024];
 	memset(s,0,1024);
-	sprintf(s,"%s/external/login?loginName=%s&loginPass=%s", status.url.c_str(),user_name,password);
+	sprintf(s,"%s/external/checkOperationUser?operationCode=%s&operationPass=%s", status.url.c_str(),user_name,password);
 	std::string strUrl = s;
 	const char *url = strUrl.c_str();
 
@@ -205,7 +206,7 @@ bool core_get_service_phone_number(char * result, int& result_len)
 }
 
 
-bool core_get_client_device(char * client_id, char * result, int& result_len)
+bool core_get_client_device(const char * client_id, char * result, int& result_len)
 {
 	char s[1024];
 	memset(s,0,1024);
@@ -217,7 +218,7 @@ bool core_get_client_device(char * client_id, char * result, int& result_len)
 }
 
 
-bool core_get_client_qrcode(char * client_id, char * result, int& result_len, char *file_path)
+bool core_get_client_qrcode(const char * client_id, char * result, int& result_len, const char *file_path)
 {
 	char s[1024];
 	memset(s,0,1024);
@@ -317,4 +318,69 @@ bool core_get_game_model(int pageIndex, char * result, int& result_len)
 	const char *url = strUrl.c_str();
 
 	return http_request_get(url,result,result_len);
+}
+
+//客户端信息上报
+extern "C" LIBCORE_API bool core_save_client_device(const char * client_id, const char * mac, char * result, int& result_len)
+{
+	char s[1024];
+	memset(s,0,1024);
+	sprintf(s,"%s/external/saveClientDevice?clientId=&client_id=%s&clientMAC=%s", \
+		status.url.c_str(),client_id,mac);
+	std::string strUrl = s;
+	const char *url = strUrl.c_str();
+
+	return http_request_get(url,result,result_len);
+}
+
+//下载文件 
+bool core_down_file(const char* file_url,const char * file_path)
+{
+	try
+	{
+		curlpp::Cleanup cleaner;
+		curlpp::Easy request;
+
+		/// Set the writer callback to enable cURL to write result in a memory area
+		curlpp::options::WriteFunctionCurlFunction
+			myFunction(FileCallback);
+
+		FILE *file = nullptr;
+		if(file_path != NULL)
+		{
+			file = fopen(file_path, "wb");
+			if(file == NULL)
+			{
+			  fprintf(stderr, "%s/n", strerror(errno));
+			  return false;
+			}
+		} 
+
+		curlpp::OptionTrait<void *, CURLOPT_WRITEDATA> 
+			myData(file);
+
+		request.setOpt(myFunction);
+		request.setOpt(myData);
+
+		/// Setting the URL to retrive.
+		request.setOpt(new curlpp::options::Url(file_url));
+		request.setOpt(new curlpp::options::Verbose(true));
+		request.perform();
+
+		fclose(file);
+	}
+
+	catch (curlpp::LogicError & e)
+	{
+		std::cout << e.what() << std::endl;
+		return false;
+	}
+
+	catch (curlpp::RuntimeError & e)
+	{
+		std::cout << e.what() << std::endl;
+		return false;
+	}
+
+	return true;
 }
